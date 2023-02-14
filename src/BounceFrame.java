@@ -7,13 +7,7 @@ public class BounceFrame extends JFrame {
     public static BallCanvas canvas;
     public static final int WIDTH = 450;
     public static final int HEIGHT = 350;
-    private static int ballsInHoles = 0;
-    private static JLabel ballsInHolesText = new JLabel("Balls in holes: 0");
 
-    public static void incrementBallsInHoles() {
-        BounceFrame.ballsInHoles += 1;
-        ballsInHolesText.setText("Balls in holes: " + ballsInHoles);
-    }
     public BounceFrame() {
         this.setSize(WIDTH, HEIGHT);
         this.setTitle("Bounce program");
@@ -31,7 +25,7 @@ public class BounceFrame extends JFrame {
         buttonStart.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                for (int i = 0; i < 2; i++) {
+                for (int i = 0; i < 5; i++) {
                     Ball b = new Ball(canvas, Color.BLUE);
                     canvas.add(b);
                     BallThread thread = new BallThread(b, Thread.MIN_PRIORITY);
@@ -56,7 +50,6 @@ public class BounceFrame extends JFrame {
 
         buttonPanel.add(buttonStart);
         buttonPanel.add(buttonStop);
-        buttonPanel.add(BounceFrame.ballsInHolesText);
 
         content.add(buttonPanel, BorderLayout.SOUTH);
     }

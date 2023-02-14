@@ -47,20 +47,6 @@ public class Ball {
         this.canvas.repaint();
     }
 
-    public boolean isInHole() {
-        ArrayList<Hole> holes = BallCanvas.holes;
-        int ballCenterX = x + XSIZE/2;
-        int ballCenterY = y + YSIZE/2;
-
-        for (Hole hole : holes) {
-            if (hole.contains(ballCenterX, ballCenterY)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
     public void removeFromCanvas() {
         BallCanvas.balls.remove(this);
     }
