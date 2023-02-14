@@ -11,20 +11,17 @@ public class Ball {
     private int y = 0;
     private int dx = 2;
     private int dy = 2;
+    private Color color;
 
-    public Ball(Component c) {
+    public Ball(Component c, Color color) {
         this.canvas = c;
-        if (Math.random() < 0.5) {
-            x = new Random().nextInt(this.canvas.getWidth());
-            y = 0;
-        } else {
-            x = 0;
-            y = new Random().nextInt(this.canvas.getHeight());
-        }
+        this.color = color;
+        x = 50;
+        y = 0;
     }
 
     public void draw(Graphics2D g2) {
-        g2.setColor(Color.darkGray);
+        g2.setColor(this.color);
         g2.fill(new Ellipse2D.Double(x, y, XSIZE, YSIZE));
     }
 
@@ -48,20 +45,6 @@ public class Ball {
             dy = -dy;
         }
         this.canvas.repaint();
-    }
-
-    public boolean isInHole() {
-        ArrayList<Hole> holes = BallCanvas.holes;
-        int ballCenterX = x + XSIZE/2;
-        int ballCenterY = y + YSIZE/2;
-
-        for (Hole hole : holes) {
-            if (hole.contains(ballCenterX, ballCenterY)) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     public void removeFromCanvas() {

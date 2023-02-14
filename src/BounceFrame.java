@@ -8,11 +8,13 @@ public class BounceFrame extends JFrame {
     public static final int WIDTH = 450;
     public static final int HEIGHT = 350;
     private static int ballsInHoles = 0;
-    private static JLabel ballsInHolesText = new JLabel("Balls in holes: 0");
-
-    public static void incrementBallsInHoles() {
-        BounceFrame.ballsInHoles += 1;
-        ballsInHolesText.setText("Balls in holes: " + ballsInHoles);
+    private BallThread addBall(Color c) {
+        Ball b = new Ball(canvas, c);
+        canvas.add(b);
+        BallThread thread = new BallThread(b);
+        thread.start();
+        System.out.println("Thread name = " + thread.getName());
+        return thread;
     }
     public BounceFrame() {
         this.setSize(WIDTH, HEIGHT);
@@ -31,11 +33,15 @@ public class BounceFrame extends JFrame {
         buttonStart.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Ball b = new Ball(canvas);
-                canvas.add(b);
-                BallThread thread = new BallThread(b);
-                thread.start();
-                System.out.println("Thread name = " + thread.getName());
+                BallThread redThread = addBall(Color.RED);
+                try {
+                    redThread.join(3000);
+                } catch(InterruptedException err) {
+                    err.printStackTrace();
+                }
+                for(int i=0; i<5; i++) {
+                    addBall(Color.BLUE);
+                }
             }
         });
 
@@ -48,7 +54,6 @@ public class BounceFrame extends JFrame {
 
         buttonPanel.add(buttonStart);
         buttonPanel.add(buttonStop);
-        buttonPanel.add(BounceFrame.ballsInHolesText);
 
         content.add(buttonPanel, BorderLayout.SOUTH);
     }
