@@ -1,11 +1,10 @@
-import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) {
-        BounceFrame frame = new BounceFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        LogThread first = new LogThread('-');
+        LogThread second = new LogThread('|');
 
-        frame.setVisible(true);
-        System.out.println("Thread name = " + Thread.currentThread().getName());
+        first.start();
+        second.start();
     }
 }
