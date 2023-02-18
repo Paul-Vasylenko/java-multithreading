@@ -1,9 +1,9 @@
 public class Counter {
     int value;
-    void increment() {
+    public synchronized void increment() {
         value = value+1;
     }
-    void decrement() {
+    public synchronized void decrement() {
         value = value-1;
     }
     int getCount() {

@@ -11,13 +11,9 @@ public class CounterThread extends Thread {
     public void run() {
         for (int i = 0; i < 100; i++) {
             if (increment) {
-                synchronized (counter) {
-                    counter.increment();
-                }
+                counter.increment();
             } else {
-                synchronized (counter) {
-                    counter.decrement();
-                }
+                counter.decrement();
             }
         }
     }
