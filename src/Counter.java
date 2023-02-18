@@ -1,10 +1,23 @@
+import java.util.concurrent.Semaphore;
+
 public class Counter {
     int value;
-    public synchronized void increment() {
-        value = value+1;
+    private final Semaphore semaphore = new Semaphore(1);
+    public void increment() throws InterruptedException {
+        semaphore.acquire();
+        try{
+            value++;
+        } finally {
+            semaphore.release();
+        }
     }
-    public synchronized void decrement() {
-        value = value-1;
+    public void decrement() throws InterruptedException {
+        semaphore.acquire();
+        try{
+            value--;
+        } finally {
+            semaphore.release();
+        }
     }
     int getCount() {
         return value;

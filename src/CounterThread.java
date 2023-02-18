@@ -10,10 +10,14 @@ public class CounterThread extends Thread {
     @Override
     public void run() {
         for (int i = 0; i < 100; i++) {
-            if (increment) {
-                counter.increment();
-            } else {
-                counter.decrement();
+            try {
+                if (increment) {
+                    counter.increment();
+                } else {
+                    counter.decrement();
+                }
+            } catch(InterruptedException e) {
+                System.out.println("Interrupted: " + e);
             }
         }
     }
