@@ -1,23 +1,24 @@
 public class CounterThread extends Thread {
     private Counter counter;
-    private char action;
-//    private int reps = 100000;
-    private int reps = 5;
+    private boolean increment;
 
-    public CounterThread(Counter counter, char action) {
+    public CounterThread(Counter counter, boolean increment) {
         this.counter = counter;
-        this.action = action;
+        this.increment = increment;
     }
 
     @Override
     public void run() {
-        for (int i=0; i<reps; i++){
-            if (action == '+') {
-                counter.increment();
+        for (int i = 0; i < 100; i++) {
+            if (increment) {
+                synchronized (counter) {
+                    counter.increment();
+                }
             } else {
-                counter.decrement();
+                synchronized (counter) {
+                    counter.decrement();
+                }
             }
-            System.out.println("Value now: " + counter.value);
         }
     }
 }
