@@ -8,7 +8,7 @@ class PrintThread extends Thread {
     }
 
     public void run() {
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 50; i++) {
             try {
                 turn.waitForTurn(symbol);
             } catch (InterruptedException e) {
